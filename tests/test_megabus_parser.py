@@ -11,5 +11,6 @@ def test_parser():
 
         assert 8.13 == returned_price
 
+
 def test_datetime_converter():
     assert check_if_correct_day("2022-09-02T17:30:00")

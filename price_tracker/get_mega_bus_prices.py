@@ -36,12 +36,12 @@ def do_scraping(date: datetime):
     }
 
     conn = requests.get(url=url, headers=headers, params=params)
-    print(conn.url)
     return conn.json()
 
 
 if __name__ == "__main__":
     start_date = date(year=2022, month=9, day=2)
     for i in range(8):
-        data = do_scraping(start_date + timedelta(weeks=i))
-        print(get_specific_price(data=data))
+        date_queried = start_date + timedelta(weeks=i)
+        data = do_scraping(date_queried)
+        print(date_queried, "£", get_specific_price(data=data))
