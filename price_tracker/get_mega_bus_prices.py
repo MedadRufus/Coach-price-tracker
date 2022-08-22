@@ -7,6 +7,18 @@ def do_scraping():
     """
     Get the json data raw, and return as a json object
     """
+    params = {
+        "originId": "56",
+        "destinationId": "13",
+        "departureDate": "2022-09-02",
+        "totalPassengers": "1",
+        "concessionCount": "0",
+        "nusCount": "0",
+        "otherDisabilityCount": "0",
+        "wheelchairSeated": "0",
+        "pcaCount": "0",
+        "days": "1",
+    }
     url = "https://uk.megabus.com/journey-planner/api/journeys?originId=56&destinationId=13&departureDate=2022-09-02&totalPassengers=1&concessionCount=0&nusCount=0&otherDisabilityCount=0&wheelchairSeated=0&pcaCount=0&days=1"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -22,7 +34,7 @@ def do_scraping():
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
     }
 
-    conn = requests.get(url=url, headers=headers)
+    conn = requests.get(url=url, headers=headers, params=params)
     return conn.json()
 
 
