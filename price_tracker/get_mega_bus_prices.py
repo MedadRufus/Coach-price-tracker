@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import requests
 from megabus_parser import get_specific_price
 
@@ -7,6 +7,7 @@ def do_scraping(date: datetime):
     """
     Get the json data raw, and return as a json object
     """
+
     params = {
         "originId": "56",
         "destinationId": "13",
@@ -39,5 +40,12 @@ def do_scraping(date: datetime):
 
 
 if __name__ == "__main__":
-    data = do_scraping(date=date(year=2022, month=9, day=2))
-    print(get_specific_price(data=data))
+    start_date = date(year=2022, month=9, day=2)
+    for i in range(8):
+        week = timedelta(weeks=i)
+        when = start_date + week
+
+        print(when)
+
+        data = do_scraping(when)
+        print(get_specific_price(data=data))
