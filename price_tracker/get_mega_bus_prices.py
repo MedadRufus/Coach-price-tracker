@@ -25,12 +25,6 @@ def do_scraping():
     return conn.json()
 
 
-def get_specific_price():
-    data = do_scraping()
-    for i in data["journeys"]:
-        if i["departureDateTime"] == "2022-09-02T17:30:00":
-            return i["price"]
-
 
 if __name__ == "__main__":
     print(get_specific_price())
