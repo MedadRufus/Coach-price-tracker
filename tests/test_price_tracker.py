@@ -1,4 +1,4 @@
-from my_package import __version__
+from price_tracker import __version__
 
 
 def test_version():
