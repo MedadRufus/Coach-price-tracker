@@ -1,16 +1,16 @@
-from pprint import PrettyPrinter
+from datetime import date, datetime
 import requests
 from megabus_parser import get_specific_price
 
 
-def do_scraping():
+def do_scraping(date: datetime):
     """
     Get the json data raw, and return as a json object
     """
     params = {
         "originId": "56",
         "destinationId": "13",
-        "departureDate": "2022-09-02",
+        "departureDate": date.strftime("%Y-%m-%d"),
         "totalPassengers": "1",
         "concessionCount": "0",
         "nusCount": "0",
@@ -39,5 +39,5 @@ def do_scraping():
 
 
 if __name__ == "__main__":
-    data = do_scraping()
+    data = do_scraping(date=date(year=2022, month=9, day=2))
     print(get_specific_price(data=data))
