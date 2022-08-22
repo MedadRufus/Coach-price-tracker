@@ -7,7 +7,7 @@ def get_specific_price(data):
             return i["price"]
 
 
-def check_if_correct_day(datestring):
+def check_if_correct_day(datestring, hour=17, minute=30):
 
     timestamp = datetime.fromisoformat(datestring)
-    return timestamp.hour is 17 and timestamp.minute is 30
+    return timestamp.hour is hour and timestamp.minute is minute
