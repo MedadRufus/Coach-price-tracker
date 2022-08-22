@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 import requests
 from megabus_parser import get_specific_price
 
@@ -40,8 +40,9 @@ def do_scraping(date: datetime):
 
 
 if __name__ == "__main__":
-    start_date = date(year=2022, month=9, day=2)
+    d = date(year=2022, month=9, day=2)
+    t = time(hour=17, minute=30)
     for i in range(24):
-        date_queried = start_date + timedelta(weeks=i)
+        date_queried = d + timedelta(weeks=i)
         data = do_scraping(date_queried)
-        print(date_queried, "£", get_specific_price(data=data))
+        print(date_queried, "£", get_specific_price(data=data, time_of_day=t))
