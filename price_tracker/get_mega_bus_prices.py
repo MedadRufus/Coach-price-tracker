@@ -20,7 +20,7 @@ def do_scraping(date: datetime):
         "pcaCount": "0",
         "days": "1",
     }
-    url = "https://uk.megabus.com/journey-planner/api/journeys?originId=56&destinationId=13&departureDate=2022-09-02&totalPassengers=1&concessionCount=0&nusCount=0&otherDisabilityCount=0&wheelchairSeated=0&pcaCount=0&days=1"
+    url = "https://uk.megabus.com/journey-planner/api/journeys"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Encoding": "gzip, deflate, br",
@@ -36,16 +36,12 @@ def do_scraping(date: datetime):
     }
 
     conn = requests.get(url=url, headers=headers, params=params)
+    print(conn.url)
     return conn.json()
 
 
 if __name__ == "__main__":
     start_date = date(year=2022, month=9, day=2)
     for i in range(8):
-        week = timedelta(weeks=i)
-        when = start_date + week
-
-        print(when)
-
-        data = do_scraping(when)
+        data = do_scraping(start_date + timedelta(weeks=i))
         print(get_specific_price(data=data))
