@@ -1,5 +1,6 @@
 from pprint import PrettyPrinter
 import requests
+from megabus_parser import get_specific_price
 
 
 def do_scraping():
@@ -27,4 +28,5 @@ def do_scraping():
 
 
 if __name__ == "__main__":
-    print(get_specific_price())
+    data = do_scraping()
+    print(get_specific_price(data=data))
