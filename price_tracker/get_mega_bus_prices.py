@@ -3,6 +3,9 @@ import requests
 
 
 def do_scraping():
+    """
+    Get the json data raw, and return as a json object
+    """
     url = "https://uk.megabus.com/journey-planner/api/journeys?originId=56&destinationId=13&departureDate=2022-09-02&totalPassengers=1&concessionCount=0&nusCount=0&otherDisabilityCount=0&wheelchairSeated=0&pcaCount=0&days=1"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -19,10 +22,15 @@ def do_scraping():
     }
 
     conn = requests.get(url=url, headers=headers)
-    print(conn.text)
-    # json = conn.json()
-    # print(json)
+    return conn.json()
+
+
+def get_specific_price():
+    data = do_scraping()
+    for i in data["journeys"]:
+        if i["departureDateTime"] == "2022-09-02T17:30:00":
+            return i["price"]
 
 
 if __name__ == "__main__":
-    do_scraping()
+    print(get_specific_price())
