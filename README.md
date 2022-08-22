@@ -9,3 +9,7 @@ Plot prices advertised on thse 3 bus operators over the course of 3 weeks, right
 2. log price in a database
 3. plot historic prices over 3 weeks
 4. have option to look at price for every week's trip
+
+# Stats
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
