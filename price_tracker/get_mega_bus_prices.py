@@ -1,13 +1,26 @@
-from pprint import PrettyPrinter
+from datetime import date, datetime, timedelta, time
 import requests
 from megabus_parser import get_specific_price
 
 
-def do_scraping():
+def do_scraping(date: datetime):
     """
     Get the json data raw, and return as a json object
     """
-    url = "https://uk.megabus.com/journey-planner/api/journeys?originId=56&destinationId=13&departureDate=2022-09-02&totalPassengers=1&concessionCount=0&nusCount=0&otherDisabilityCount=0&wheelchairSeated=0&pcaCount=0&days=1"
+
+    params = {
+        "originId": "56",
+        "destinationId": "13",
+        "departureDate": date.strftime("%Y-%m-%d"),
+        "totalPassengers": "1",
+        "concessionCount": "0",
+        "nusCount": "0",
+        "otherDisabilityCount": "0",
+        "wheelchairSeated": "0",
+        "pcaCount": "0",
+        "days": "1",
+    }
+    url = "https://uk.megabus.com/journey-planner/api/journeys"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Encoding": "gzip, deflate, br",
@@ -22,10 +35,14 @@ def do_scraping():
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
     }
 
-    conn = requests.get(url=url, headers=headers)
+    conn = requests.get(url=url, headers=headers, params=params)
     return conn.json()
 
 
 if __name__ == "__main__":
-    data = do_scraping()
-    print(get_specific_price(data=data))
+    d = date(year=2022, month=9, day=2)
+    t = time(hour=17, minute=30)
+    for i in range(24):
+        date_queried = d + timedelta(weeks=i)
+        data = do_scraping(date_queried)
+        print(date_queried, "£", get_specific_price(data=data, time_of_day=t))

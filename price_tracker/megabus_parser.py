@@ -1,4 +1,13 @@
-def get_specific_price(data):
+from datetime import datetime, time
+
+
+def get_specific_price(data, time_of_day: time):
     for i in data["journeys"]:
-        if i["departureDateTime"] == "2022-09-02T17:30:00":
+        if check_if_correct_day(i["departureDateTime"], time_of_day):
             return i["price"]
+
+
+def check_if_correct_day(datestring, time_of_day: time):
+
+    timestamp = datetime.fromisoformat(datestring)
+    return timestamp.hour is time_of_day.hour and timestamp.minute is time_of_day.minute
